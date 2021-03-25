@@ -574,6 +574,11 @@ var Eth = function Eth() {
                     subscriptionName: 'newPendingTransactions', // replace subscription with this name
                     params: 0
                 },
+                'pendingTransactionsDetail': {
+                    subscriptionName: 'newPendingTransactionsDetail', // replace subscription with this name
+                    params: 0,
+                    outputFormatter: formatter.outputPendingTransactionDetailFormatter
+                },
                 'logs': {
                     params: 1,
                     inputFormatter: [formatter.inputLogFormatter],

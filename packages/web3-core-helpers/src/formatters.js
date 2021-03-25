@@ -256,6 +256,28 @@ var outputTransactionFormatter = function (tx) {
 };
 
 /**
+ * Formats the output of a transaction to its proper values
+ *
+ * @method outputTransactionFormatter
+ * @param {Object} tx
+ * @returns {Object}
+ */
+var outputPendingTransactionDetailFormatter = function (tx) {
+    tx.nonce = utils.hexToNumber(tx.nonce);
+    tx.gas = utils.hexToNumber(tx.gas);
+    tx.gasPrice = outputBigNumberFormatter(tx.gasPrice);
+    tx.value = outputBigNumberFormatter(tx.value);
+
+    if (tx.to && utils.isAddress(tx.to)) { // tx.to could be `0x0` or `null` while contract creation
+        tx.to = utils.toChecksumAddress(tx.to);
+    } else {
+        tx.to = null; // set to `null` if invalid address
+    }
+    return tx;
+};
+
+
+/**
  * Formats the output of a transaction receipt to its proper values
  *
  * @method outputTransactionReceiptFormatter
@@ -509,5 +531,6 @@ module.exports = {
     outputBlockFormatter: outputBlockFormatter,
     outputLogFormatter: outputLogFormatter,
     outputPostFormatter: outputPostFormatter,
-    outputSyncingFormatter: outputSyncingFormatter
+    outputSyncingFormatter: outputSyncingFormatter,
+    outputPendingTransactionDetailFormatter: outputPendingTransactionDetailFormatter
 };
